@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/index.ts"],"names":[],"mappings":";AAAA,IAAI,IAAW;AACf,IAAI,IAAW;AAEf,QAAQ,IAAI,IAAE,CAAC","sourcesContent":["let a:number = 3\nlet b:number = 3\n\nconsole.log(a+b);"]}

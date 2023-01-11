@@ -1,0 +1,18 @@
+{
+  "name": "@laz/publish-flow",
+  "version": "1.0.0",
+  "description": "自动发布",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "tsup --watch",
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "饶驹",
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.4"
+  }
+}

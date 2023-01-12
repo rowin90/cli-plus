@@ -1,4 +1,4 @@
-let a:number = 3;
-let b:number = 3;
+const shell = require('shelljs');
+const { SECRET } = require('./config.ts');
 
-console.log(a+b);
+shell.echo(SECRET);

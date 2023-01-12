@@ -34,5 +34,8 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "dependencies": {
+    "typescript": "^4.9.4"
   }
 }

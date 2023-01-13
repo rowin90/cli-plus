@@ -7,7 +7,7 @@
   "scripts": {
     "start": "tsup --watch",
     "build": "tsup",
-    "test":"node ./src/index.ts"
+    "cicd": "ts-node ./src/index.ts"
   },
   "keywords": [],
   "author": "饶驹",
@@ -19,6 +19,7 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "shelljs": "^0.8.5"
+    "shelljs": "^0.8.5",
+    "ts-node": "^10.9.1"
   }
 }

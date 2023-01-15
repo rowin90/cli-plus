@@ -1,28 +1,34 @@
 import shell  from 'shelljs';
-import { genExecSh } from './utils';
-const argv = process.argv.slice(1);
-console.log('argv: ', argv);
-console.log('shell: ', shell);
+import { genExecSh } from '@/utils';
+import { TASK } from '@/config';
 
-// test
-const tasks_test = [
-  '/view/seaseller-erp-test/job/ss-erp-test-lazmore-listing-front/build',
-  '/view/seaseller-erp-test/job/ss-erp-test-seaseller-listing-front/build'
-];
+const argv = process.argv.slice(2);
 
-// online
-// const tasks_online = [
-//   '/view/listing-online/job/listing-product-online-seaseller-front/build',
-//   '/view/listing-online/job/listing-product-online-lazmore-front/build'
-// ];
+if(argv.length === 0){
+  throw(new Error('请输入平台'));
+}
+
+if(argv.length === 1){
+  throw(new Error('请输入环境'));
+}
+
+if(!TASK[argv[0]]){
+  throw(new Error('没有找到发布任务，请检查发布平台配置 :' + argv[0]));
+}
+// @ts-ignore
+if(!TASK[argv[0]][argv[1]]){
+  throw(new Error(`没有找到【${argv[0]}】平台的 【${[argv[1]]}】环境，请检查发布平台配置 `));
+}
 
 
 try {
-  for (let index = 0; index < tasks_test.length; index++) {
-    const task = tasks_test[index];
+  //@ts-ignore
+  let currentTask:any = TASK[argv[0]][argv[1]]  || [];
+  for (let index = 0; index < currentTask.length; index++) {
+    const task = currentTask[index];
     shell.exec(genExecSh(task));
   }
-  shell.echo('🎆🎆🎆 发布成功' + '\n');
+  shell.echo(`🎆🎆🎆 发布成功:【${argv[0]}】【${[argv[1]]}】环境` + '\n');
 } catch (error) {
   shell.echo('😭😭😭 发布失败' + '\n');
 }

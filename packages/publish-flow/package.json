@@ -4,12 +4,15 @@
   "description": "自动发布",
   "private": true,
   "main": "index.js",
+  "bin": {
+    "laz-cli": "./bin/index.js"
+  },
   "scripts": {
     "start": "tsup --watch",
-    "build": "tsup",
-    "cicd": "ts-node ./src/index.ts"
+    "build": "tsup"
   },
-  "keywords": [],
+  "files": ["dist","bin"],
+  "keywords": ["publish"],
   "author": "饶驹",
   "license": "ISC",
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@lzbbb/publish-flow",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "jenkins auto publish",
   "private": false,
   "main": "index.js",
@@ -11,8 +11,17 @@
     "start": "tsup --watch",
     "build": "tsup"
   },
-  "files": ["dist","bin"],
-  "keywords": ["publish"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "publish"
+  ],
   "author": "饶驹",
   "license": "ISC",
   "devDependencies": {
@@ -22,7 +31,6 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "shelljs": "^0.8.5",
-    "ts-node": "^10.9.1"
+    "shelljs": "^0.8.5"
   }
 }

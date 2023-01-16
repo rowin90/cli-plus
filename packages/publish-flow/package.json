@@ -1,8 +1,8 @@
 {
   "name": "@laz/publish-flow",
   "version": "1.0.0",
-  "description": "自动发布",
-  "private": true,
+  "description": "jenkins auto publish",
+  "private": false,
   "main": "index.js",
   "bin": {
     "laz-cli": "./bin/index.js"

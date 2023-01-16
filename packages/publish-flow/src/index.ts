@@ -28,7 +28,7 @@ try {
     const task = currentTask[index];
     shell.exec(genExecSh(task));
   }
-  shell.echo(`🎆🎆🎆 发布成功:【${argv[0]}】【${[argv[1]]}】环境` + '\n');
+  console.log(`🎆🎆🎆 发布成功:【${argv[0]}】【${[argv[1]]}】环境` + '\n');
 } catch (error) {
-  shell.echo('😭😭😭 发布失败' + '\n');
+  console.log('😭😭😭 发布失败' + '\n');
 }

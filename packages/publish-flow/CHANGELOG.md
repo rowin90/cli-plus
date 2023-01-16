@@ -1,10 +1,16 @@
 # @lzbbb/publish-flow
 
-## 2.0.1
+## 2.0.2
 
 ### Patch Changes
 
-- feat: 更新发布流程
+- :q
+
+## `2.0.1
+
+### Patch Changes
+
+- feat: 更新发布`流程
 
 ## 2.0.0
 

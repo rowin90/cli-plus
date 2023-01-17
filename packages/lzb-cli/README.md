@@ -1,4 +1,4 @@
-# laz 脚手架 发布功能
+# lzb 脚手架 发布功能
 1. 维护 jenkins 中的配置，在 src/config 中
 2. 执行命令，加项目名+环境，例如 laz-ci listing test
 

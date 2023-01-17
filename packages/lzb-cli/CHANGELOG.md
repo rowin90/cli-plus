@@ -1,19 +1,7 @@
-# @lzbbb/publish-flow
+# @lzbbb/cli
 
-## 2.0.2
-
-### Patch Changes
-
-- :q
-
-## `2.0.1
-
-### Patch Changes
-
-- feat: 更新发布`流程
-
-## 2.0.0
+## 3.0.0
 
 ### Major Changes
 
-- 6d95eb5: 首次提交
+- 全新交互模式发布

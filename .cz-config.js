@@ -59,7 +59,7 @@ module.exports = {
   },
   allowCustomScopes: false,
   scopes: [
-    // { name: 'cli' },
+    // { name: 'lzb-cli' },
     // { name: '*' }
   ],
   skipQuestions: ['body', 'footer'],

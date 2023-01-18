@@ -2,8 +2,15 @@ import Conf  from 'conf';
 import type { ITask }  from '@/types/deploy';
 
 interface Config {
+  // jenkins 账号
   username: string
+  // jenkins 密码
   password: string
+  // uni 的配置
+  uni:{
+    'pdy-app(h5)':string
+    [key:string]:string
+  }
 }
 
 const config = new Conf<Config>({});
@@ -22,6 +29,12 @@ const TASK: ITask = {
       '/view/listing-online/job/listing-product-online-seaseller-front/build',
       '/view/listing-online/job/listing-product-online-lazmore-front/build'
     ]
+  },
+  'pdy-app(h5)': {
+    type:'uni-app',
+    appProjectName:'pdy-app',
+    test: ['admin@10.10.20.136:/home/wwwroot/pdyh5'],
+    online: ['']
   }
 };
 

@@ -24,11 +24,13 @@ const { program } = require('commander');
 const {
   handleDeploy,
   handleLogin,
-  getConfig
+  getConfig,
+  handleUniConfig
 } = require('./action');
 program.version(localVersion);
 program.command('login').description('登录').action(handleLogin);
 program.command('config').description('查看配置信息').action(getConfig);
+program.command('resetUniConf').description('重置uni-app项目配置').action(handleUniConfig);
 program
   .command('deploy')
 // .option('-pre --pre','预览发布信息')

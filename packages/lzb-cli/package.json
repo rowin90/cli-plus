@@ -1,6 +1,6 @@
 {
   "name": "@lzbbb/cli",
-  "version": "3.0.0",
+  "version": "4.0.1",
   "description": "jenkins auto publish",
   "private": false,
   "main": "index.js",

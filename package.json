@@ -28,11 +28,13 @@
     "eslint": "^8.22.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
+    "prettier": "^2.8.3",
     "rimraf": "^4.0.7"
   },
   "lint-staged": {
     "*.ts": [
       "eslint --fix",
+      "prettier",
       "git add"
     ]
   },

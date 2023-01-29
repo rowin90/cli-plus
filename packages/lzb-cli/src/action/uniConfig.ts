@@ -1,7 +1,10 @@
+/**
+ * @deprecated 废弃.不需要配置uni的地址
+ */
 // @ts-ignore
 import inquirer from 'inquirer';
-import {config, TASK} from '@/config';
-import {info} from '@/utils/log';
+import { config, TASK } from '@/config';
+import { info } from '@/utils/log';
 
 export const handleUniConfig = async () => {
   try {
@@ -9,7 +12,14 @@ export const handleUniConfig = async () => {
       uni_project: string
       dist: string
     }>([
-      { type: 'list', name: 'uni_project', message: '选择要录入的uni-app项目名' ,choices:Object.keys(TASK).filter(i=> i.includes('app')).map(t => ({name: t, value: t}))},
+      {
+        type: 'list',
+        name: 'uni_project',
+        message: '选择要录入的uni-app项目名',
+        choices: Object.keys(TASK)
+          .filter((i) => i.includes('app'))
+          .map((t) => ({ name: t, value: t }))
+      },
       {
         type: 'input',
         name: 'dist',

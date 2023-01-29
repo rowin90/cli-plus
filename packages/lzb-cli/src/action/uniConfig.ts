@@ -1,5 +1,5 @@
 /**
- * @deprecated 废弃.不需要配置uni的地址
+ * windows 用户需要配置 打包目录
  */
 // @ts-ignore
 import inquirer from 'inquirer';

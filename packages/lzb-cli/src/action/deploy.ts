@@ -1,17 +1,20 @@
-import type { Command } from 'commander';
+import type {Command} from 'commander';
 import inquirer from 'inquirer';
-import { TASK, HOST, config } from '@/config';
-import { exec } from 'child_process';
+import {TASK, HOST, config} from '@/config';
+import {exec} from 'child_process';
 import shell from 'shelljs';
-import { handleLogin } from './login';
-import { info, error } from '@/utils/log';
-import type { IEnv } from '@/types/deploy';
-import { ITask } from '@/types/deploy';
-// import fs from 'fs'
+import {handleLogin} from './login';
+import {handleUniConfig} from './uniConfig';
+import {info, error, verbose} from '@/utils/log';
+import {isWindows} from '@/utils/tools';
+import type {IEnv} from '@/types/deploy';
+import {ITask} from '@/types/deploy';
+import fs from 'fs';
+
 
 interface Options {
-  options: { pre: string }
-  program: Command
+  options: { pre: string };
+  program: Command;
 }
 
 export const handleDeploy = async ({}: Options) => {
@@ -30,7 +33,7 @@ export const handleDeploy = async ({}: Options) => {
         type: 'list',
         name: 'project',
         message: '请选择发布的项目',
-        choices: Object.keys(TASK).map((t) => ({ name: t, value: t }))
+        choices: Object.keys(TASK).map((t) => ({name: t, value: t}))
       })
     ).project;
     const env = (
@@ -115,15 +118,22 @@ const uniH5 = async (project: keyof ITask, env: 'test' | 'online') => {
     const appConfig = TASK[project] as IEnv;
     const dest = appConfig[env]?.[0];
     const appProjectName = appConfig?.appProjectName;
+    let dist = '';
 
-    let child = shell.exec(
-      `/Applications/HBuilderX.app/Contents/MacOS/cli publish --platform h5 --project ${appProjectName}`
-    );
+    if (isWindows) {
+      // windows 系统，需要自己打包上传
+      dist = await get_UniH5_win_dist(project, env);
 
-    const dist = _resolvePathBuildH5(child.stdout);
+    } else {
+      // mac 可以自动打包并上传
+      let child = shell.exec(
+        `/Applications/HBuilderX.app/Contents/MacOS/cli publish --platform h5 --project ${appProjectName}`
+      );
+      dist = _resolvePathBuildH5(child.stdout);
+    }
 
-    info('开始上传文件,请输入密码:');
-
+    info('开始上传文件:');
+    verbose(`-> 本地打包 dist 地址: ${dist}`);
     shell.exec(`scp -r ${dist} ${dest}`);
     resolve('');
   });
@@ -136,4 +146,33 @@ const _resolvePathBuildH5 = (str: string): string => {
     return res[1];
   }
   throw new Error('未解析到打包结果，请检查');
+};
+
+const get_UniH5_win_dist = (project: keyof ITask, env: 'test' | 'online'): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    let conf = config.get('uni');
+    let dist = conf?.[project];
+    if (dist) {
+      // 如果配置了本地的打包路径
+      // @ts-ignore
+      let dest: any = TASK[project]?.[env];
+      const checkDir = fs.existsSync(dist);
+      if (checkDir) {
+        info(`检查本地目录:${dist}`);
+        if (!dist.endsWith('/')) {
+          dist = dist + '/';
+        }
+        resolve(dist);
+      } else {
+        reject(`${dist} 目录不存在`);
+      }
+
+    } else {
+      // 如果没有配置本地打包
+      await handleUniConfig();
+      reject('配置更新，请重新发布');
+      return;
+    }
+
+  });
 };

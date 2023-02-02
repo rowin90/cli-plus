@@ -7,7 +7,7 @@
     "preinstall": "npx only-allow pnpm && husky install",
     "build": "pnpm --filter=@lzbbb/* run build",
     "clear": "rimraf 'packages/*/{lib,node_modules}' && rimraf node_modules",
-    "changeset": "changeset && changeset version && pnpm release --registry=https://registry.npmjs.com/",
+    "changeset": "changeset && changeset version && pnpm release",
     "version-packages": "changeset version",
     "release": "pnpm build && pnpm release:only",
     "release:only": "changeset publish --registry=https://registry.npmjs.com/",

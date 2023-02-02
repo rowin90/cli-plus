@@ -5,6 +5,7 @@ const latestVersion = execSync('npm view @lzbbb/cli version')
   ?.toString()
   ?.trim();
 const pkg = require('../package.json');
+const log = require('./utils/log');
 const localVersion = pkg.version;
 
 if (latestVersion && semver.gt(latestVersion, localVersion)) {
@@ -30,9 +31,13 @@ const {
   getConfig,
   handleUniConfig
 } = require('./action');
-program.version(localVersion);
+program.version(localVersion)
+  .option('-d,--debug', '是否开启debug模式', false);
+
 program.command('login').description('登录').action(handleLogin);
+
 program.command('config').description('查看配置信息').action(getConfig);
+
 program
   .command('resetUniConf')
   .description('重置uni-app项目配置')
@@ -49,5 +54,15 @@ program
       program
     });
   });
+
+// 监听 debug 模式
+program.on('option:debug', function () {
+  if (program.opts().debug) {
+    process.env.LOG_LEVEL = 'verbose';
+  } else {
+    process.env.LOG_LEVEL = 'info';
+  }
+  log.level = process.env.LOG_LEVEL;
+});
 
 program.parse(process.argv);

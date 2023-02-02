@@ -1,5 +1,17 @@
 # @lzbbb/cli
 
+## 5.0.0
+
+### Major Changes
+
+- 去掉不用依赖
+
+## 4.0.2
+
+### Patch Changes
+
+- 支持 window 系统上传 uni-app
+
 ## 4.0.1
 
 ### Patch Changes

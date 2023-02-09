@@ -121,19 +121,16 @@ const uniH5 = async (project: keyof ITask, env: 'test' | 'online') => {
     let dist = '';
 
     if (isWindows) {
-      // windows 系统，需要自己打包上传
+      // windows 系统，需要自己打包上传，cli 中只做上传的部分
       dist = await get_UniH5_win_dist(project, env);
-
     } else {
       // mac 可以自动打包并上传
-      let child = shell.exec(
-        `/Applications/HBuilderX.app/Contents/MacOS/cli publish --platform h5 --project ${appProjectName}`
-      );
-      dist = _resolvePathBuildH5(child.stdout);
+      dist = get_UniH5_mac_dist(appProjectName!);
+
     }
 
     info('开始上传文件:');
-    verbose(`-> 本地打包 dist 地址: ${dist}`);
+    verbose(`-> 本地打包后 uni-app h5项目地址: ${dist}`);
     shell.exec(`scp -r ${dist} ${dest}`);
     resolve('');
   });
@@ -175,4 +172,11 @@ const get_UniH5_win_dist = (project: keyof ITask, env: 'test' | 'online'): Promi
     }
 
   });
+};
+
+const get_UniH5_mac_dist = (appProjectName:string):string =>{
+  let child = shell.exec(
+    `/Applications/HBuilderX.app/Contents/MacOS/cli publish --platform h5 --project ${appProjectName}`
+  );
+  return _resolvePathBuildH5(child.stdout);
 };

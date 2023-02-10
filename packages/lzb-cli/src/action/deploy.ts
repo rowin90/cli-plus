@@ -77,8 +77,8 @@ export const handleDeploy = async ({}: Options) => {
     }
 
     info('🚀🚀🚀 发布成功');
-    info(`发布项目：${project}`);
-    info(`发布环境：${env}`);
+    // info(`发布项目：${project}`);
+    // info(`发布环境：${env}`);
   } catch (e) {
     error('😭😭😭 发布失败');
     error('错误原因:' + e);

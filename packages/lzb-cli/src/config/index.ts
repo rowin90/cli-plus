@@ -39,6 +39,10 @@ const TASK: ITask = {
   userCenter: {
     test: ['/view/seaseller-erp-test/job/ss-erp-test-pc-front/build'],
     online: ['/view/fe-seaseller/job/fe-ss-prod-erp-front/build']
+  },
+  seaSeller: {
+    test: ['/view/fe-seaseller/job/fe-ss-test-seaseller-front/build'],
+    online: ['/view/fe-seaseller/job/fe-ss-prod-seaseller-front/build']
   }
 };
 

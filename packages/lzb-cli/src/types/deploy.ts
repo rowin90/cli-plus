@@ -12,5 +12,6 @@ export interface IEnv {
 export interface ITask {
   listing: IEnv
   'pdy-app(h5)': IEnv,
-  userCenter:IEnv
+  userCenter:IEnv,
+  seaSeller:IEnv
 }

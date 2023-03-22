@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+const {execSync} = require('child_process');
 const inquirer = require('inquirer');
 const semver = require('semver');
 const latestVersion = execSync('npm view @lzbbb/cli version')
@@ -15,7 +15,7 @@ if (latestVersion && semver.gt(latestVersion, localVersion)) {
       name: 'isUpdate',
       message: '有新版本是否需要更新？'
     })
-    .then(({ isUpdate }: { isUpdate: boolean }) => {
+    .then(({isUpdate}: { isUpdate: boolean }) => {
       if (isUpdate) {
         console.log('npm i @lzbbb/cli@latest --production -g');
       }
@@ -24,12 +24,13 @@ if (latestVersion && semver.gt(latestVersion, localVersion)) {
   return null;
 }
 
-const { program } = require('commander');
+const {program} = require('commander');
 const {
   handleDeploy,
   handleLogin,
   getConfig,
-  handleUniConfig
+  handleUniConfig,
+  handleUpload
 } = require('./action');
 program.version(localVersion)
   .option('-d,--debug', '是否开启debug模式', false);
@@ -44,13 +45,25 @@ program
   .action(handleUniConfig);
 program
   .command('deploy')
-  // .option('-pre --pre','预览发布信息')
-  // .option('-c, --cheese <type>', 'add the specified type of cheese', 'blue')
+// .option('-pre --pre','预览发布信息')
+// .option('-c, --cheese <type>', 'add the specified type of cheese', 'blue')
   .description('部署应用')
   .action((...arg: any) => {
     let [options, program] = arg;
     handleDeploy({
       options,
+      program
+    });
+  });
+
+program.command('upload <filePath>').description('上传文件')
+  .option('--server <server>', '上传服务器', '42.192.152.22')
+  .option('--destPath <destPath>', '服务器地址', '/data/img/work/')
+  .action((...arg: any) => {
+    let [filePath, program] = arg;
+
+    handleUpload({
+      filePath,
       program
     });
   });

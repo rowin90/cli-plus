@@ -1,5 +1,17 @@
 # @lzbbb/cli
 
+## 6.0.1
+
+### Patch Changes
+
+- 上传
+
+## 6.0.0
+
+### Major Changes
+
+- 支持上传资源功能
+
 ## 5.0.0
 
 ### Major Changes

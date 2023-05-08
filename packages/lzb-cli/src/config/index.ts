@@ -16,18 +16,18 @@ interface Config {
 const config = new Conf<Config>({});
 
 // jenkins 域名
-const HOST = 'http://10.10.20.151:8080';
+const HOST = 'http://jenkins-test.lazbao.com';
 
 // 任务列表
 const TASK: ITask = {
   listing: {
     test: [
-      '/view/seaseller-erp-test/job/ss-erp-test-lazmore-listing-front/build',
-      '/view/seaseller-erp-test/job/ss-erp-test-seaseller-listing-front/build'
+      '/view/listing-product-test/job/listing-product-test-lazmore-front//build',
+      '/view/listing-product-test/job/listing-product-test-seaseller-front/build'
     ],
     online: [
-      '/view/listing-online/job/listing-product-online-seaseller-front/build',
-      '/view/listing-online/job/listing-product-online-lazmore-front/build'
+      '/view/listing-product-online/job/listing-product-online-seaseller-front/build',
+      '/view/listing-product-online/job/listing-product-online-lazmore-front/build'
     ]
   },
   'pdy-app(h5)': {
@@ -45,7 +45,5 @@ const TASK: ITask = {
     online: ['/view/fe-seaseller/job/fe-ss-prod-seaseller-front/build']
   }
 };
-
-// const SECRET = 'raoju:11971539c0573a6782b229acb5f72ba987';
 
 export { config, TASK, HOST };

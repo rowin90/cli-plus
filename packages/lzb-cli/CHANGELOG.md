@@ -1,5 +1,11 @@
 # @lzbbb/cli
 
+## 6.1.0
+
+### Minor Changes
+
+- 新增 upload 上传到 github.io
+
 ## 6.0.1
 
 ### Patch Changes

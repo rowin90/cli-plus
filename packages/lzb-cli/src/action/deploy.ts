@@ -36,22 +36,16 @@ export const handleDeploy = async ({}: Options) => {
         choices: Object.keys(TASK).map((t) => ({name: t, value: t}))
       })
     ).project;
+
+    const target = TASK[project]
+
     const env = (
-      await inquirer.prompt({
-        type: 'list',
-        name: 'env',
-        message: '请选择发布的环境',
-        choices: [
-          {
-            name: '测试',
-            value: 'test'
-          },
-          {
-            name: '线上',
-            value: 'online'
-          }
-        ]
-      })
+        await inquirer.prompt({
+          type: 'list',
+          name: 'env',
+          message: '请选择发布的环境',
+          choices: Object.keys(target).map((t) => ({name: t, value: t}))
+        })
     ).env;
     if (env === 'online') {
       // 2. 是否发布线上

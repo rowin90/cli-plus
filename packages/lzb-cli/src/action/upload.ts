@@ -18,13 +18,14 @@ export const handleUpload = async ({filePath, program}:Arg) => {
 
     const type:'github' | 'tencent' = 'github';
     if (type === 'github') {
-        uploadToGithub(filePath);
+        uploadToGithub(filePath,program);
     } else if (type === 'tencent') {
         uploadToTencentServer(stats, filePath, program);
     }
 };
 
-function uploadToGithub(filePath) {
+function uploadToGithub(filePath,program) {
+    let { forcePush } = program;
 
     const virtualFileName = path.basename(filePath); // 获取文件名
 
@@ -50,13 +51,24 @@ function uploadToGithub(filePath) {
         });
     }
 
-    // 创建文件夹，如果已存在则忽略
-    runCommand(`mkdir -p ${localRepoPath}`)
-        .then(() => runCommand(`cp ${filePath} ${localRepoPath}`))
-        .then(() => runCommand(`mv ${localRepoPath}/${virtualFileName}  ${localRepoPath}/${fileName}`))
-        .then(() => runCommand(`cd ${GITHUB_REPO_LOCAL} && git add . && git commit -m 'add: ${fileName}' && git push`))
-        .then(() => console.log(`访问地址: https://rowin90.github.io/images/${folderName && folderName + '/'}${fileName}`))
-        .catch((err) => console.error(err));
+    // 如果是强制push，只用重新在push一次返回即可，github没有push成功
+    if (forcePush){
+        // 创建文件夹，如果已存在则忽略
+        runCommand(`cd ${GITHUB_REPO_LOCAL} && git push`)
+            .then(() => console.log(`访问地址: https://rowin90.github.io/images/${folderName && folderName + '/'}${fileName}`))
+            .catch((err) => console.error(err));
+
+    }else{
+        // 创建文件夹，如果已存在则忽略
+        runCommand(`mkdir -p ${localRepoPath}`)
+            .then(() => runCommand(`cp ${filePath} ${localRepoPath}`))
+            .then(() => runCommand(`mv ${localRepoPath}/${virtualFileName}  ${localRepoPath}/${fileName}`))
+            .then(() => runCommand(`cd ${GITHUB_REPO_LOCAL} && git add . && git commit -m 'add: ${fileName}' && git push`))
+            .then(() => console.log(`访问地址: https://rowin90.github.io/images/${folderName && folderName + '/'}${fileName}`))
+            .catch((err) => console.error(err));
+    }
+
+
 }
 
 function uploadToTencentServer(stats:fs.Stats, filePath:string, program:{ server:any; destPath:any; }) {

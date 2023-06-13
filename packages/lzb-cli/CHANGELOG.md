@@ -1,5 +1,11 @@
 # @lzbbb/cli
 
+## 6.1.1
+
+### Patch Changes
+
+- 新增 forcePush 参数，防止 push github 后失效情况
+
 ## 6.1.0
 
 ### Minor Changes

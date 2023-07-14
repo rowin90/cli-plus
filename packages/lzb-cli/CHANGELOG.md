@@ -1,5 +1,11 @@
 # @lzbbb/cli
 
+## 6.2.0
+
+### Minor Changes
+
+- 新增 deploy 命令对 monorepo 项目的支持
+
 ## 6.1.1
 
 ### Patch Changes

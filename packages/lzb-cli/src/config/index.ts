@@ -1,16 +1,16 @@
 import Conf from 'conf';
-import type {ITask} from '@/types/deploy';
+import type { ITask } from '@/types/deploy';
 
 interface Config {
     // jenkins 账号
-    username:string;
+    username: string
     // jenkins 密码
-    password:string;
+    password: string
     // uni 的配置
-    uni:{
-        'pdy-app(h5)':string
-        [key:string]:string
-    };
+    uni: {
+        'pdy-app(h5)': string
+        [key: string]: string
+    }
 }
 
 const config = new Conf<Config>({});
@@ -19,7 +19,7 @@ const config = new Conf<Config>({});
 const HOST = 'http://jenkins-test.lazbao.com';
 
 // 任务列表
-const TASK:ITask = {
+const TASK: ITask = {
     '采集插件': {
         test: ['/view/node/job/node-test-erp-gather-server/build'],
         online: ['/view/node/job/node-prod-erp-gather-server/build']
@@ -29,7 +29,15 @@ const TASK:ITask = {
         online: ['/view/node/job/node-prod-pdd-order-server/build']
     },
     '运营工具箱': {
-        online: ['/view/node/job/node-prod-search-image-server/build']
+        type:'monorepo',
+        monorepoProject:{
+            '以图搜款':'image-search',
+            '工具看板':'tool-dashboard',
+            '服务端':'server',
+            '活动看板':'activity-dashboard',
+            '报活动':'activity-regist'
+        },
+        online: ['/view/node/job/node-prod-search-image-server/buildWithParameters']
     },
     '刊登': {
         test: [
@@ -57,4 +65,4 @@ const TASK:ITask = {
     }
 };
 
-export {config, TASK, HOST};
+export { config, TASK, HOST };

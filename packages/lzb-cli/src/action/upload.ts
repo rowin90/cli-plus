@@ -28,8 +28,6 @@ function uploadToGithub(filePath, program) {
     let {forcePush} = program;
 
     const virtualFileName = path.basename(filePath); // 获取文件名
-    console.log('filePath : ', filePath);
-    console.log('virtualFileName : ', virtualFileName);
 
     let folderName, fileName;
     if (virtualFileName.includes('__')) {

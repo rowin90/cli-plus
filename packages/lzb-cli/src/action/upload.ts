@@ -18,20 +18,30 @@ export const handleUpload = async ({filePath, program}:Arg) => {
 
     const type:'github' | 'tencent' = 'github';
     if (type === 'github') {
-        uploadToGithub(filePath,program);
+        uploadToGithub(filePath, program);
     } else if (type === 'tencent') {
         uploadToTencentServer(stats, filePath, program);
     }
 };
 
-function uploadToGithub(filePath,program) {
-    let { forcePush } = program;
+function uploadToGithub(filePath, program) {
+    let {forcePush} = program;
 
     const virtualFileName = path.basename(filePath); // 获取文件名
+    console.log('filePath : ', filePath);
+    console.log('virtualFileName : ', virtualFileName);
 
-    const [folderName, fileName] = virtualFileName.split('__');
+    let folderName, fileName;
+    if (virtualFileName.includes('__')) {
+        // 如果有文件夹形式
+        [folderName, fileName] = virtualFileName.split('__');
+    } else {
+        fileName = virtualFileName;
+    }
+
 
     let localRepoPath = `${GITHUB_REPO_LOCAL}/images/`; // 目标路径
+
     if (folderName) {
         // 如果有文件夹
         localRepoPath = `${GITHUB_REPO_LOCAL}/images/${folderName}`; // 目标路径
@@ -52,18 +62,24 @@ function uploadToGithub(filePath,program) {
     }
 
     // 如果是强制push，只用重新在push一次返回即可，github没有push成功
-    if (forcePush){
+    if (forcePush) {
         // 创建文件夹，如果已存在则忽略
         runCommand(`cd ${GITHUB_REPO_LOCAL} && git push`)
             .then(() => console.log(`访问地址: https://rowin90.github.io/images/${folderName && folderName + '/'}${fileName}`))
             .catch((err) => console.error(err));
 
-    }else{
+    } else {
         // 创建文件夹，如果已存在则忽略
         runCommand(`mkdir -p ${localRepoPath}`)
             .then(() => runCommand(`cp ${filePath} ${localRepoPath}`))
             .then(() => runCommand(`mv ${localRepoPath}/${virtualFileName}  ${localRepoPath}/${fileName}`))
-            .then(() => runCommand(`cd ${GITHUB_REPO_LOCAL} && git add . && git commit -m 'add: ${fileName}' && git push`))
+            .then(() => runCommand('echo \'复制成功\''))
+            .then(() => runCommand(`cd ${GITHUB_REPO_LOCAL} && git add .`))
+            .then(() => runCommand('echo \'提交缓存区\''))
+            .then(() => runCommand(`cd ${GITHUB_REPO_LOCAL} && git commit -m 'add: ${fileName}'`))
+            .then(() => runCommand('echo \'提交仓库成功\''))
+            .then(() => runCommand(`cd ${GITHUB_REPO_LOCAL} && git push`))
+            .then(() => runCommand('echo \'上传成功\''))
             .then(() => console.log(`访问地址: https://rowin90.github.io/images/${folderName && folderName + '/'}${fileName}`))
             .catch((err) => console.error(err));
     }

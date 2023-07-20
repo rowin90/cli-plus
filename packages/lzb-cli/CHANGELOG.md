@@ -1,5 +1,17 @@
 # @lzbbb/cli
 
+## 6.2.2
+
+### Patch Changes
+
+- 调试
+
+## 6.2.1
+
+### Patch Changes
+
+- 修改脚本名称为 rr
+
 ## 6.2.0
 
 ### Minor Changes

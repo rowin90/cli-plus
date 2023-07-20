@@ -1,11 +1,11 @@
 {
   "name": "@lzbbb/cli",
-  "version": "6.2.0",
+  "version": "6.2.2",
   "description": "jenkins auto publish",
   "private": false,
   "main": "index.js",
   "bin": {
-    "lzb": "./bin/index.js"
+    "rr": "./bin/index.js"
   },
   "scripts": {
     "start": "tsup --watch",

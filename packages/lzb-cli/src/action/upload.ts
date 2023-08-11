@@ -62,9 +62,12 @@ function uploadToGithub(filePath, program) {
     // 如果是强制push，只用重新在push一次返回即可，github没有push成功
     if (forcePush) {
         // 创建文件夹，如果已存在则忽略
-        runCommand(`cd ${GITHUB_REPO_LOCAL} && git push`)
-            .then(() => console.log(`访问地址: https://rowin90.github.io/images/${folderName && folderName + '/'}${fileName}`))
-            .catch((err) => console.error(err));
+        runCommand(`cd ${GITHUB_REPO_LOCAL} && git push --force`)
+            .then(() => console.log(`🎡访问地址: https://rowin90.github.io/images/${folderName && folderName + '/'}${fileName}`))
+            .catch((err) => {
+                console.error(err);
+                console.log(`🤔push异常，未返回结果，可尝试访问地址: https://rowin90.github.io/images/${folderName && folderName + '/'}${fileName}`);
+            });
 
     } else {
         // 创建文件夹，如果已存在则忽略

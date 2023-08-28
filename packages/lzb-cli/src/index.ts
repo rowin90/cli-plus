@@ -56,10 +56,11 @@ program
         });
     });
 
-program.command('upload <filePath>').description('上传文件')
+program.command('upload [filePath]').description('上传文件')
     .option('--server <server>', '上传服务器', '42.192.152.22')
     .option('--destPath <destPath>', '服务器地址', '/data/img/work/')
     .option('-f, --forcePush', '强制上传github更新', false)
+    .option('-l, --list', '查看图床分类',false)
     .action((...arg: any) => {
         let [filePath, program] = arg;
 

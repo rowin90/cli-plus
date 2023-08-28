@@ -1,5 +1,11 @@
 # @lzbbb/cli
 
+## 6.2.3
+
+### Patch Changes
+
+- 新增查看上传图床的列表功能
+
 ## 6.2.2
 
 ### Patch Changes

@@ -7,12 +7,21 @@ interface Arg {
     program:{
         server:string
         destPath:string
+        list:boolean
     };
 }
 
 const GITHUB_REPO_LOCAL = '/Users/jerome/rowin90.github.io';
+let localRepoPath = `${GITHUB_REPO_LOCAL}/images/`; // 目标路径
 
 export const handleUpload = async ({filePath, program}:Arg) => {
+    let {list} = program;
+
+    // 查看图床分类
+    if (list) {
+        listImageCategory(localRepoPath);
+        return;
+    }
 
     const stats = fs.statSync(filePath);
 
@@ -37,8 +46,6 @@ function uploadToGithub(filePath, program) {
         fileName = virtualFileName;
     }
 
-
-    let localRepoPath = `${GITHUB_REPO_LOCAL}/images/`; // 目标路径
 
     if (folderName) {
         // 如果有文件夹
@@ -120,4 +127,17 @@ function uploadToTencentServer(stats:fs.Stats, filePath:string, program:{ server
         }
     });
 
+}
+
+function listImageCategory(storePath) {
+    try {
+        const folders = fs.readdirSync(storePath, {withFileTypes: true})
+            .filter(dirent => dirent.isDirectory())
+            .map(dirent => dirent.name);
+        console.log('图床列表分类:', folders);
+        return folders;
+    } catch (error) {
+        console.error(`Error reading folder: ${error}`);
+        return [];
+    }
 }

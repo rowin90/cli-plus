@@ -30,7 +30,8 @@ const {
     handleLogin,
     getConfig,
     handleUniConfig,
-    handleUpload
+    handleUpload,
+    handleAi
 } = require('./action');
 program.version(localVersion)
     .option('-d,--debug', '是否开启debug模式', false);
@@ -68,6 +69,13 @@ program.command('upload [filePath]').description('上传文件')
             filePath,
             program
         });
+    });
+
+
+program.command('ai').description('ai模块')
+    .action(()=> {
+
+        handleAi();
     });
 
 // 监听 debug 模式

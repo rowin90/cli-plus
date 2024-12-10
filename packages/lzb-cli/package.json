@@ -12,7 +12,7 @@
     "build": "rimraf ./dist && tsup"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "restricted"
   },
   "files": [
     "dist",
@@ -38,6 +38,7 @@
     "import-local": "^3.1.0",
     "inquirer": "^8.0.0",
     "npmlog": "^7.0.1",
+    "openai": "^4.76.0",
     "semver": "^7.3.8",
     "shelljs": "^0.8.5",
     "tslib": "^2.4.1"

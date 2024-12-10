@@ -2,11 +2,12 @@ import OpenAI from 'openai';
 import inquirer from 'inquirer';
 
 const client = new OpenAI({
-    apiKey: 'sk-D266e1bZ20sDTyyp5e344859C47042De84Ee5d9f1f55Fc28',
+    apiKey: process.env.OPENAI_API_KEY,
     baseURL: 'https://api.shellgpt.top/v1'
 });
 
 export async function handleAi() {
+
 
     const question = (await inquirer.prompt({
         type: 'input',
